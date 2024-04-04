@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:instagram/screen/signup.dart';
 
 import '../constant.dart';
 import '../widget/button.dart';
@@ -11,6 +13,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SizedBox(
           width: size.width,
@@ -116,7 +119,9 @@ class Login extends StatelessWidget {
               CreateAccount(
                 style: ConstantAuthen.textStyleSwitch,
                 text: 'Sign up.',
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => const SignUp());
+                },
               ),
               const SizedBox(
                 height: 60,

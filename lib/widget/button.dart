@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class Button extends StatelessWidget {
-  String text;
-  void Function()? onPressed;
-  double? minWidth;
-  Button({
-    Key? key,
+  final String text;
+  final void Function()? onPressed;
+  final double? minWidth;
+  const Button({
+    super.key,
     required this.text,
     this.onPressed,
     required this.minWidth,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

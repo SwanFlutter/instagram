@@ -10,25 +10,27 @@ class CastomTextField extends StatelessWidget {
   IconData? iconPassword;
   String? Function(String?)? validator;
   CastomTextField({
-    Key? key,
+    super.key,
     required this.size,
     this.controller,
     required this.text,
     required this.icon,
     this.iconPassword,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: size,
-      height: 44,
+      height: 55,
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: controller,
         decoration: InputDecoration(
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueAccent)),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide:

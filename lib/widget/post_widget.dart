@@ -3,7 +3,6 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:image_blur/image_blur.dart';
-
 import 'package:like_button/like_button.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -150,7 +149,7 @@ class Post {
 
 class Imagess extends StatefulWidget {
   Imagess(
-      {Key? key,
+      {super.key,
       required this.size,
       required this.listImage,
       required this.userName,
@@ -216,8 +215,7 @@ class Imagess extends StatefulWidget {
       this.onTapAvatar,
       this.onTapBookMark,
       this.onTapCommente,
-      this.onTapSharePost})
-      : super(key: key);
+      this.onTapSharePost});
 
   final Size size;
   final List listImage;
@@ -667,11 +665,10 @@ class _ImagessState extends State<Imagess> {
                             height: double.infinity,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(16.0),
-                              child: ImageBlur.imageDownloadBlur(
+                              child: ImageBlur(
                                 imageUrl: widget.listImage[i],
                                 height: double.infinity,
                                 width: double.infinity,
-                                loadingProgress: true,
                               ),
                             ),
                           ),
@@ -840,14 +837,14 @@ class TopIcon extends StatelessWidget {
   final double size;
   final String? text;
   const TopIcon({
-    Key? key,
+    super.key,
     this.onTap,
     required this.icon,
     required this.borderColorLight,
     required this.borderColorDark,
     required this.size,
     required this.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

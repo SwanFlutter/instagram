@@ -5,7 +5,7 @@ import '../widget/button.dart';
 import '../widget/create_account.dart';
 
 class Authentication extends StatelessWidget {
-  const Authentication({Key? key}) : super(key: key);
+  const Authentication({super.key});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
