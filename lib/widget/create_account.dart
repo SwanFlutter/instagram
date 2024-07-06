@@ -5,23 +5,24 @@ import '../constant.dart';
 
 // ignore: must_be_immutable
 class CreateAccount extends StatelessWidget {
-  String text;
-  void Function()? onPressed;
-  TextStyle? style;
-  CreateAccount({
-    Key? key,
+  final String textQuestion;
+  final String text;
+  final void Function()? onPressed;
+  final TextStyle? style;
+  const CreateAccount({
+    super.key,
     required this.text,
     this.onPressed,
     required this.style,
-  }) : super(key: key);
+    this.textQuestion = "Already have an account?",
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have an account?",
-            style: ConstantAuthen.textStylebottom),
+        Text(textQuestion, style: ConstantAuthen.textStylebottom),
         TextButton(
           onPressed: onPressed,
           child: Text(

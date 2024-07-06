@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 
 import 'package:expandable_text/expandable_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_blur/image_blur.dart';
 import 'package:like_button/like_button.dart';
@@ -660,18 +661,33 @@ class _ImagessState extends State<Imagess> {
                         for (var i = 0;
                             i < widget.listImage.length && i < 9;
                             i++)
-                          SizedBox(
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
-                              child: ImageBlur(
-                                imageUrl: widget.listImage[i],
-                                height: double.infinity,
-                                width: double.infinity,
-                              ),
-                            ),
-                          ),
+                          !kIsWeb
+                              ? SizedBox(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    child: ImageBlur(
+                                      imageUrl: widget.listImage[i],
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    child: ImageBlur.blurIsWeb(
+                                      placeholder: 'assets/placeholder.jpg',
+                                      image: widget.listImage[i],
+                                      thumbnail: widget.listImage[i],
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                    ),
+                                  ),
+                                )
                       ],
                     ),
                   ),

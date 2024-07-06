@@ -118,7 +118,8 @@ class Login extends StatelessWidget {
               ),
               CreateAccount(
                 style: ConstantAuthen.textStyleSwitch,
-                text: 'Sign up.',
+                textQuestion: "Don't have an account?",
+                text: 'Sign Up',
                 onPressed: () {
                   Get.to(() => const SignUp());
                 },
