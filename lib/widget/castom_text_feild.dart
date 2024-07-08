@@ -7,16 +7,18 @@ class CastomTextField extends StatelessWidget {
   TextEditingController? controller;
   String text;
   IconData icon;
-  IconData? iconPassword;
+  Widget iconPassword;
   String? Function(String?)? validator;
+  bool obscureText;
   CastomTextField({
     super.key,
     required this.size,
     this.controller,
     required this.text,
     required this.icon,
-    this.iconPassword,
+    this.iconPassword = const SizedBox(),
     this.validator,
+    this.obscureText = false,
   });
 
   @override
@@ -25,6 +27,7 @@ class CastomTextField extends StatelessWidget {
       width: size,
       height: 55,
       child: TextFormField(
+        obscureText: obscureText,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: controller,
@@ -41,10 +44,7 @@ class CastomTextField extends StatelessWidget {
             icon,
             color: Colors.grey,
           ),
-          suffixIcon: Icon(
-            iconPassword,
-            color: Colors.grey,
-          ),
+          suffixIcon: iconPassword,
           fillColor: const Color.fromRGBO(250, 250, 250, 1),
           filled: true,
         ),

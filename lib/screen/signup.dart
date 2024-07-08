@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram/constant.dart';
+import 'package:instagram/controller/aut_signup_controller.dart';
 import 'package:instagram/screen/login.dart';
 import 'package:instagram/widget/button.dart';
+import 'package:instagram/widget/castom_text_feild.dart';
 import 'package:instagram/widget/create_account.dart';
-import 'package:instagram/widget/text_form.dart';
+
+AutControllerSignUp autControllerSignUp = Get.find<AutControllerSignUp>();
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -24,13 +27,20 @@ class SignUp extends StatelessWidget {
               const Spacer(),
               Image.asset(
                 "assets/IG logo.png",
-                width: 150,
-                height: 100,
-              ),
-              const SizedBox(
-                height: 30.0,
+                width: 200,
+                height: 150,
               ),
               CastomTextField(
+                controller: autControllerSignUp.fullName,
+                text: "Full Name",
+                size: size.width * 0.90,
+                icon: Icons.person,
+              ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              CastomTextField(
+                controller: autControllerSignUp.email,
                 text: "Email",
                 size: size.width * 0.90,
                 icon: Icons.email,
@@ -38,32 +48,65 @@ class SignUp extends StatelessWidget {
               const SizedBox(
                 height: 12.0,
               ),
-              CastomTextField(
-                text: "Password",
-                size: size.width * 0.90,
-                icon: Icons.lock,
-                iconPassword: Icons.visibility,
+              Obx(
+                () => CastomTextField(
+                  controller: autControllerSignUp.password,
+                  text: "Password",
+                  size: size.width * 0.90,
+                  icon: Icons.lock,
+                  obscureText: autControllerSignUp.isObscure.value,
+                  iconPassword: IconButton(
+                    onPressed: () {
+                      autControllerSignUp.togglePassword();
+                    },
+                    icon: Icon(
+                      autControllerSignUp.isObscure.value
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: autControllerSignUp.isObscure.value
+                          ? Colors.grey
+                          : Colors.black,
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 12.0,
               ),
-              CastomTextField(
-                text: "ConfirmPassword",
-                size: size.width * 0.90,
-                icon: Icons.lock,
-                iconPassword: Icons.visibility,
+              Obx(
+                () => CastomTextField(
+                  controller: autControllerSignUp.confirmPassword,
+                  text: "ConfirmPassword",
+                  size: size.width * 0.90,
+                  icon: Icons.lock,
+                  obscureText: autControllerSignUp.isObscure.value,
+                  iconPassword: IconButton(
+                    onPressed: () {
+                      autControllerSignUp.togglePassword();
+                    },
+                    icon: Icon(
+                      autControllerSignUp.isObscure.value
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: autControllerSignUp.isObscure.value
+                          ? Colors.grey
+                          : Colors.black,
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 30.0,
               ),
               Button(
+                height: size.height * 0.06,
                 minWidth: 343.0,
                 text: 'Sign Up',
-                onPressed: () {},
+                onPressed: () {
+                  autControllerSignUp.signUp(context);
+                },
               ),
-              const SizedBox(
-                height: 37.0,
-              ),
+              const Spacer(),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -77,8 +120,8 @@ class SignUp extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 37.0,
+              SizedBox(
+                height: size.height * 0.02,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -108,8 +151,8 @@ class SignUp extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 37.0,
+              SizedBox(
+                height: size.height * 0.03,
               ),
               CreateAccount(
                 style: ConstantAuthen.textStyleSwitch,
@@ -118,10 +161,6 @@ class SignUp extends StatelessWidget {
                   Get.to(() => const Login());
                 },
               ),
-              const SizedBox(
-                height: 60,
-              ),
-              const Divider(),
               const Spacer(),
               const Text(
                 "instagram To Facebook",

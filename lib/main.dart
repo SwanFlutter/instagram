@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:instagram/screen/login.dart';
+import 'package:image_blur/image_blur.dart';
+import 'package:instagram/binding/binding.dart';
+import 'package:instagram/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  ImageBlur.init();
   runApp(const MyApp());
 }
 
@@ -15,11 +19,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Instagram',
+      initialBinding: MyBinding(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
       ),
-      home: const Login(),
+      home: const SplashScreen(),
     );
   }
 }

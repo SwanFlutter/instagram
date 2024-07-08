@@ -6,11 +6,13 @@ class Button extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
   final double? minWidth;
+  final double height;
   const Button({
     super.key,
     required this.text,
     this.onPressed,
     required this.minWidth,
+    this.height = 44.0,
   });
 
   @override
@@ -19,7 +21,7 @@ class Button extends StatelessWidget {
       shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide.none),
-      height: 44,
+      height: height,
       minWidth: minWidth,
       color: Theme.of(context).primaryColor,
       onPressed: onPressed,

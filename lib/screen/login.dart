@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instagram/controller/aut_login_controller.dart';
 import 'package:instagram/screen/signup.dart';
 
 import '../constant.dart';
 import '../widget/button.dart';
+import '../widget/castom_text_feild.dart';
 import '../widget/create_account.dart';
-import '../widget/text_form.dart';
+
+AutLoginController autLoginController = Get.find<AutLoginController>();
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -25,8 +28,8 @@ class Login extends StatelessWidget {
               const Spacer(),
               Image.asset(
                 "assets/IG logo.png",
-                width: 150,
-                height: 100,
+                width: 200,
+                height: 150,
               ),
               const SizedBox(
                 height: 30.0,
@@ -39,11 +42,26 @@ class Login extends StatelessWidget {
               const SizedBox(
                 height: 12.0,
               ),
-              CastomTextField(
-                text: "Password",
-                size: size.width * 0.90,
-                icon: Icons.lock,
-                iconPassword: Icons.visibility,
+              Obx(
+                () => CastomTextField(
+                  text: "Password",
+                  size: size.width * 0.90,
+                  obscureText: autLoginController.isObscureLogin.value,
+                  icon: Icons.lock,
+                  iconPassword: IconButton(
+                    onPressed: () {
+                      autLoginController.togglePassword();
+                    },
+                    icon: Icon(
+                      autLoginController.isObscureLogin.value
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: autLoginController.isObscureLogin.value
+                          ? Colors.grey
+                          : Colors.black,
+                    ),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
@@ -62,13 +80,14 @@ class Login extends StatelessWidget {
                 height: 30.0,
               ),
               Button(
+                height: size.height * 0.06,
                 minWidth: 343.0,
                 text: 'Log in',
-                onPressed: () {},
+                onPressed: () {
+                  autLoginController.login(context);
+                },
               ),
-              const SizedBox(
-                height: 37.0,
-              ),
+              const Spacer(),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -82,9 +101,7 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 37.0,
-              ),
+              const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: const Row(
@@ -113,9 +130,7 @@ class Login extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 37.0,
-              ),
+              const Spacer(),
               CreateAccount(
                 style: ConstantAuthen.textStyleSwitch,
                 textQuestion: "Don't have an account?",
@@ -124,10 +139,6 @@ class Login extends StatelessWidget {
                   Get.to(() => const SignUp());
                 },
               ),
-              const SizedBox(
-                height: 60,
-              ),
-              const Divider(),
               const Spacer(),
               const Text(
                 "instagram To Facebook",
