@@ -80,7 +80,7 @@ class Login extends StatelessWidget {
                 height: 30.0,
               ),
               Button(
-                height: size.height * 0.06,
+                height: size.height * 0.08,
                 minWidth: 343.0,
                 text: 'Log in',
                 onPressed: () {

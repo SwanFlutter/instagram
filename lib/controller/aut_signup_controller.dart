@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram/model/user_model.dart';
 import 'package:instagram/screen/login.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AutControllerSignUp extends GetxController {
   final GetConnect _http = GetConnect();
@@ -38,10 +41,10 @@ class AutControllerSignUp extends GetxController {
   }
 
   void signUp(BuildContext context) async {
-    if (fullName.text.isNotEmpty &&
-        email.text.isNotEmpty &&
-        password.text.isNotEmpty &&
-        confirmPassword.text.isNotEmpty) {
+    if (fullName.text.isEmpty &&
+        email.text.isEmpty &&
+        password.text.isEmpty &&
+        confirmPassword.text.isEmpty) {
       Get.snackbar(
         "Warning",
         "Please fill in the blank fields",
@@ -97,10 +100,16 @@ class AutControllerSignUp extends GetxController {
         colorText: Colors.white,
       );
     } else {
-      bool isConnected = await UserModel.checkInternet();
+      bool isConnected = await userModel.value.checkInternet();
 
       if (isConnected) {
-        Get.showOverlay(asyncFunction: () => checkSignUp(context));
+        Get.showOverlay(
+          asyncFunction: () => checkSignUp(context),
+          loadingWidget: LoadingAnimationWidget.staggeredDotsWave(
+            color: Theme.of(context).primaryColor,
+            size: 15,
+          ),
+        );
       } else {
         Get.snackbar('Error', 'No internet connection',
             backgroundColor: Colors.red);
@@ -111,7 +120,7 @@ class AutControllerSignUp extends GetxController {
 
   Future<UserModel?> checkSignUp(BuildContext context) async {
     var jsonData = userModel.value;
-    var url = "https://reqres.in/api/users";
+    var url = "http://192.168.1.105/instagram/screen/signup.php";
     var body = {
       "fullName": fullName.text.trim(),
       "email": email.text.trim(),
@@ -120,14 +129,18 @@ class AutControllerSignUp extends GetxController {
 
     var headers = {"Content-Type": "application/json"};
 
-    final response = await _http.post(url, json.encode(body), headers: headers);
-
     try {
+      final response =
+          await _http.post(url, json.encode(body), headers: headers);
+
       if (response.statusCode == 200) {
-        jsonData = UserModel.fromJson(json.decode(response.body));
+        print(
+            'Response: ${response.body}'); // Log the response body for debugging
+        var responseBody = json.decode(response.bodyString!);
+        jsonData = UserModel.fromJson(responseBody);
 
         bool success = jsonData.success ?? false;
-        String message = jsonData.message ?? 'Unknown error';
+        String message = jsonData.message.toString() ?? 'Unknown error';
 
         if (success) {
           Get.snackbar(

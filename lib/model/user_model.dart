@@ -2,15 +2,17 @@
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 
 class UserModel {
-  int? id;
-  String? fullName;
-  String? email;
-  String? picProfile;
-  String? password;
-  bool? success;
-  String? message;
+  final int? id;
+  final String? fullName;
+  final String? email;
+  final String? picProfile;
+  final String? password;
+  final bool? success;
+  final String? message;
+  final Map<String, dynamic>? data;
   UserModel({
     this.id,
     this.fullName,
@@ -19,9 +21,10 @@ class UserModel {
     this.password,
     this.success,
     this.message,
+    this.data,
   });
 
-  static Future<bool> checkInternet() async {
+  Future<bool> checkInternet() async {
     final connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult.contains(ConnectivityResult.wifi) ||
         connectivityResult.contains(ConnectivityResult.mobile) ||
@@ -42,6 +45,7 @@ class UserModel {
     String? password,
     bool? success,
     String? message,
+    Map<String, dynamic>? data,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -51,6 +55,7 @@ class UserModel {
       password: password ?? this.password,
       success: success ?? this.success,
       message: message ?? this.message,
+      data: data ?? this.data,
     );
   }
 
@@ -63,6 +68,7 @@ class UserModel {
       'password': password,
       'success': success,
       'message': message,
+      'data': data,
     };
   }
 
@@ -76,6 +82,9 @@ class UserModel {
       password: map['password'] != null ? map['password'] as String : null,
       success: map['success'] != null ? map['success'] as bool : null,
       message: map['message'] != null ? map['message'] as String : null,
+      data: map['data'] != null
+          ? Map<String, dynamic>.from((map['data'] as Map<String, dynamic>))
+          : null,
     );
   }
 
@@ -86,7 +95,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, fullName: $fullName, email: $email, picProfile: $picProfile, password: $password, success: $success, message: $message)';
+    return 'UserModel(id: $id, fullName: $fullName, email: $email, picProfile: $picProfile, password: $password, success: $success, message: $message, data: $data)';
   }
 
   @override
@@ -99,7 +108,8 @@ class UserModel {
         other.picProfile == picProfile &&
         other.password == password &&
         other.success == success &&
-        other.message == message;
+        other.message == message &&
+        mapEquals(other.data, data);
   }
 
   @override
@@ -110,6 +120,7 @@ class UserModel {
         picProfile.hashCode ^
         password.hashCode ^
         success.hashCode ^
-        message.hashCode;
+        message.hashCode ^
+        data.hashCode;
   }
 }

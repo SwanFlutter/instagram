@@ -44,6 +44,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
   avatar_better: ^0.0.7
   connectivity_plus: ^6.0.3
+  loading_animation_widget: ^1.2.1
   image_blur: 
     path: G:\Android\Pakege\image_blur
   path_provider: ^2.1.3

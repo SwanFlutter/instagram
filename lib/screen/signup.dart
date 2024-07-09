@@ -99,10 +99,11 @@ class SignUp extends StatelessWidget {
                 height: 30.0,
               ),
               Button(
-                height: size.height * 0.06,
+                height: size.height * 0.08,
                 minWidth: 343.0,
                 text: 'Sign Up',
                 onPressed: () {
+                  //   print(autControllerSignUp.confirmPassword.text);
                   autControllerSignUp.signUp(context);
                 },
               ),
