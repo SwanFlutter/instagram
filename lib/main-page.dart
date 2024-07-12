@@ -3,6 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:instagram/screen/add_post.dart';
 import 'package:instagram/screen/favorite.dart';
 import 'package:instagram/screen/home.dart';
+import 'package:instagram/screen/login.dart';
 import 'package:instagram/screen/person.dart';
 import 'package:instagram/screen/search.dart';
 
@@ -51,6 +52,7 @@ class _MainPageState extends State<MainPage> {
         onTabChange: (value) {
           setState(() {
             selectedIndex = value;
+            autLoginController.initializeToken();
           });
         },
       ),

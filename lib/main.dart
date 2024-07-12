@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_blur/image_blur.dart';
 import 'package:instagram/binding/binding.dart';
+import 'package:instagram/screen/login.dart';
 import 'package:instagram/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ImageBlur.init();
+  await ImageBlur.init();
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -18,6 +21,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      onInit: () {
+        autLoginController.getToken();
+        autLoginController.initializeToken();
+        autLoginController.onInit();
+      },
       title: 'Flutter Instagram',
       initialBinding: MyBinding(),
       theme: ThemeData(

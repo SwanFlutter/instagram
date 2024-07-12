@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.7"
+  avatar_better_pro:
+    dependency: "direct main"
+    description:
+      name: avatar_better_pro
+      sha256: "9e635c049cc1eacd49f08d4f30602ba0c479a5b160d032fb808888199fea2677"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   blurhash_dart:
     dependency: transitive
     description:
@@ -280,6 +288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.6"
+  get_storage:
+    dependency: "direct main"
+    description:
+      name: get_storage
+      sha256: "39db1fffe779d0c22b3a744376e86febe4ade43bf65e06eab5af707dc84185a2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   google_nav_bar:
     dependency: "direct main"
     description:
@@ -447,6 +463,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.1"
+  jwt_decode:
+    dependency: "direct main"
+    description:
+      name: jwt_decode
+      sha256: d2e9f68c052b2225130977429d30f187aa1981d789c76ad104a32243cfdebfbb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1"
   leak_tracker:
     dependency: transitive
     description:

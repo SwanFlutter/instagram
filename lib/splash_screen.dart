@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instagram/main-page.dart';
 import 'package:instagram/screen/login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,7 +27,9 @@ class _SplashScreenState extends State<SplashScreen>
 
     Future.delayed(const Duration(seconds: 5), () {
       _controller.stop();
-      Get.off(() => const Login());
+      Get.off(() => autLoginController.getToken() != null
+          ? const MainPage()
+          : const Login());
     });
   }
 

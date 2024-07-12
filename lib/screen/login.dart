@@ -35,6 +35,7 @@ class Login extends StatelessWidget {
                 height: 30.0,
               ),
               CastomTextField(
+                controller: autLoginController.email,
                 text: "Email",
                 size: size.width * 0.90,
                 icon: Icons.email,
@@ -44,6 +45,7 @@ class Login extends StatelessWidget {
               ),
               Obx(
                 () => CastomTextField(
+                  controller: autLoginController.password,
                   text: "Password",
                   size: size.width * 0.90,
                   obscureText: autLoginController.isObscureLogin.value,

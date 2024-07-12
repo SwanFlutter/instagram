@@ -118,3 +118,5 @@ const List<String> picList = [
   "assets/1.png",
   "assets/Oval.png",
 ];
+
+String baseUsrl = 'http://192.168.1.105/instagram/upload/avatar/';

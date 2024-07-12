@@ -48,6 +48,9 @@ dependencies:
   image_blur: 
     path: G:\Android\Pakege\image_blur
   path_provider: ^2.1.3
+  get_storage: ^2.1.1
+  jwt_decode: ^0.3.1
+  avatar_better_pro: ^0.0.4
   
 
 dev_dependencies:

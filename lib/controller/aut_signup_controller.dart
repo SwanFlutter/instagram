@@ -4,9 +4,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:instagram/model/user_model.dart';
 import 'package:instagram/screen/login.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+GetStorage storage = GetStorage();
 
 class AutControllerSignUp extends GetxController {
   final GetConnect _http = GetConnect();
@@ -77,7 +80,7 @@ class AutControllerSignUp extends GetxController {
         backgroundColor: Colors.deepOrangeAccent,
         colorText: Colors.white,
       );
-    } else if (password.text.length <= 8) {
+    } else if (password.text.length < 8) {
       Get.snackbar(
         "Warning",
         "Password must be at least 8 characters",
@@ -118,29 +121,28 @@ class AutControllerSignUp extends GetxController {
     }
   }
 
-  Future<UserModel?> checkSignUp(BuildContext context) async {
-    var jsonData = userModel.value;
+  Future<void> checkSignUp(BuildContext context) async {
     var url = "http://192.168.1.105/instagram/screen/signup.php";
-    var body = {
+    var body = jsonEncode({
       "fullName": fullName.text.trim(),
       "email": email.text.trim(),
       "password": password.text.trim(),
+    });
+
+    Map<String, String> headers = {
+      'Accept': '*/*',
+      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+      'Content-Type': 'application/json'
     };
 
-    var headers = {"Content-Type": "application/json"};
-
     try {
-      final response =
-          await _http.post(url, json.encode(body), headers: headers);
+      final response = await _http.post(url, body, headers: headers);
 
       if (response.statusCode == 200) {
-        print(
-            'Response: ${response.body}'); // Log the response body for debugging
-        var responseBody = json.decode(response.bodyString!);
-        jsonData = UserModel.fromJson(responseBody);
+        var jsonData = json.decode(response.bodyString!);
 
-        bool success = jsonData.success ?? false;
-        String message = jsonData.message.toString() ?? 'Unknown error';
+        bool success = jsonData['success'];
+        String message = jsonData['message'].toString();
 
         if (success) {
           Get.snackbar(
@@ -158,6 +160,7 @@ class AutControllerSignUp extends GetxController {
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 5),
+            snackPosition: SnackPosition.BOTTOM,
           );
         }
       } else {
@@ -172,9 +175,8 @@ class AutControllerSignUp extends GetxController {
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         backgroundColor: Colors.red,
         duration: const Duration(seconds: 5),
+        snackPosition: SnackPosition.BOTTOM,
       );
     }
-
-    return jsonData;
   }
 }
